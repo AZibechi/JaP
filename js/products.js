@@ -47,7 +47,7 @@ function showProductsList(){
             ((maxCount == undefined) || parseInt(product.cost) <= maxCount)){
         
          htmlContentToAppend += `
-        <div class="list-group-item list-group-item-action">
+        <div onclick="setProdID(${product.id})" class="list-group-item list-group-item-action">
             <div class="row">
                 <div class="col-3">
                     <img src="${product.image}" alt="product image" class="img-thumbnail">
@@ -71,6 +71,12 @@ function showProductsList(){
     }
 }
 
+    // Almacena el id en el local storage
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+}
+
     // recibe por qué criterio de orden se lo está llamando
 function sortAndShowProducts(sortCriteria, productosArray){
     currentSortCriteria = sortCriteria;
@@ -91,7 +97,7 @@ function sortAndShowProducts(sortCriteria, productosArray){
 document.addEventListener("DOMContentLoaded", function(e){
     // cuando se carga la pagina almacena el ID de la categoría y llama json correspondiente
     let catID = localStorage.getItem('catID')
-    let CatProd = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`
+    let CatProd = CATS_PRODUCTS+catID+EXT_TYPE;
     
     getJSONData(CatProd).then(function(resultObj){
         
