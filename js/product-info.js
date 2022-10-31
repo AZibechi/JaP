@@ -31,6 +31,36 @@ function setProdID(id) {
     window.location = "product-info.html"
 }
 
+function addToCart() {
+    // seteo ProductosCarrito, trayendo lo que haya en localstorage
+    var productosCarrito = JSON.parse(localStorage.getItem("carrito"));
+    // si no hay nada, hago que sea un array vacío
+    if(productosCarrito == null) productosCarrito = [];
+    // console.log(productosCarrito)
+    // agarrar la primer imagen del array de imagenes
+    let imagenes = producto.images[0];
+    let noAniadir = false
+    // para cada producto de en el localStorage, si ya existe un producto con el ID, le sumo count al que ya existe
+    for (produc of productosCarrito) {
+        if (produc.id == producto.id) {
+            produc.count ++
+            noAniadir = true
+            let productoAniadido = produc
+            // sustituir el elemento del array existente por este nuevo, asi que no push
+            productosCarrito[productosCarrito.indexOf(produc)] == productoAniadido;
+            localStorage.setItem("carrito", JSON.stringify(productosCarrito));
+        }
+    }
+    if (noAniadir == false) {
+    
+    // Hago que el array producto Aniadido sea el array con el formato que me va a cargar el cart
+    productoAniadido = JSON.parse(`{"id": ${producto.id},"name": "${producto.name}","count": 1,"unitCost": ${producto.cost},"currency": "${producto.currency}","image": "${imagenes}"}`)
+    productosCarrito.push(productoAniadido);
+    localStorage.setItem("carrito", JSON.stringify(productosCarrito));
+    }
+    console.log(productosCarrito)
+}
+
 function showProduct() {
     let imagenes = "";
     let relatedProd = "";
@@ -75,7 +105,13 @@ function showProduct() {
 
     //Genera todo el contenido de la página
     let htmlContentToAppend = `
-    <h1 id="name" class="pt-5 pb-4">${producto.name}</h1>
+    <div class="d-flex flex-row justify-content-between">
+    <h1 id="name" class="pt-5 pb-4 d-flex ">${producto.name}</h1>
+    <div class="d-flex align-items-center">
+    <button type="button" class="btn btn-success" onclick="addToCart()">Comprar</button>
+    </div>
+    </div>
+    <hr class="solid">
     <p>
       <b>Precio</b> </br>
       <span id="cost">${producto.currency} ${producto.cost}</span>

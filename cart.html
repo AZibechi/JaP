@@ -29,18 +29,175 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="my-profile.html" id="nomUsu"></a>
+          <li class="nav-item" >
+            <div id="nomUsu"></div>
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <!--Carrito-->
+      <form id="formCompra" class="needs-validation" novalidate>
+    <div class="container mt-5">
+      <div id="carrito">
+        <h1 class="center mb-3">Carrito de compras</h1>
+        <h3>Artículos a comprar</h3>
+        <div class="table-responsive-small">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class="col-1"></th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Costo</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody id="carritoContent">
+
+          </tbody>
+        </table>
       </div>
+      </div>
+    </div>
+
+      <!--Tipo de envío-->
+      
+        <div class="container">
+          <h2 class="mt-2 mb-2">Tipo de envio</h2>
+          <div class="form-check mt-2">
+            <input type="radio" name="tipoEnvio" value="15" id="premium" class="form-check-input" required> <label for="premium">Premium 2 a 5 dias (15%)</label>
+          </div>
+          <div class="form-check mt-2">
+            <input type="radio" name="tipoEnvio" value="7"  id="express" class="form-check-input" required> <label for="express">Express 5 a 8 dias (7%)</label>
+          </div>
+          <div class="mt-2 form-check">
+            <input type="radio" name="tipoEnvio" value="5"  id="standard" class="form-check-input" required> <label for="standard">Standard 12 a 15 dias (5%)</label>
+            <div class="invalid-feedback">Seleccione un tipo de envío</div>
+          </div>
+        </div>
+
+        <!--Dirección de envío-->
+      <div class="container mt-3">
+            <h2>Dirección de envío</h2>
+        <div class="row">
+          <div class="col col-5 mb-3">
+              <label for="calle">Calle</label>
+            <input class="form-control " id="calle" placeholder="Ej: 18 de Julio" name="calle" required>
+            <div class="invalid-feedback">Seleccione una calle</div>
+          </div>
+          <!--Form-->
+          <div class="col col-3 mb-3">
+              <label for="numero">Numero</label>
+            <input class="form-control" id="numero" placeholder="Ej: 619" name="Numero" required>
+            <div class="invalid-feedback">Seleccione un número</div>
+          </div>
+        </div>
+
+      <div class="row">
+        <div class="col col-5 mb-3">
+              <label for="esquina">Esquina</label>
+            <input class="form-control" id="esquina" placeholder="Ej: Andes" name="esquina" required>
+            <div class="invalid-feedback">Seleccione una esquina</div>
+          </div>  
+     </div>
+    </div>
+
+      <!--Costos-->
+    <div class="container">
+      <hr>
+     <div class="mt-5">
+      <h2>Costos</h2>
+      <!--Lista-->
+      <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">Subtotal</h6>
+            <small class="text-muted">Unitario del producto por cantidad</small>
+          </div>
+          <div><span class="text-muted" id="subtotalProductos">-</span> <span>USD</span> </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">Costo de envío</h6>
+            <small class="text-muted">Según el tipo de envío</small>
+          </div>
+          <div><span class="text-muted" id="costoTotal">-</span> <span>USD</span></div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total ($)</span>
+          <div><strong id="subtotalGeneral">-</strong> <strong>USD</strong></div>
+        </li>
+      </ul>
+     </div>
+    </div>
+     
+
+     <!--Forma de pago-->
+     <div class="container">
+      <hr>
+      <h2>Forma de pago</h2>
+      <span class="mb-2">Seleccione forma de pago</span> </br> </br> 
+      <a class="link-primary mt-2" data-bs-toggle="modal" data-bs-target="#modalPago"><button class="btn btn-primary">Seleccionar</button></a>
+      
+      <!--Modal-->
+      <div class="modal fade" id="modalPago"  role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="exampleModalLabel">Forma de pago</h2>
+            </div>
+            <div class="modal-body">
+              <div>  
+                <input type="radio" name="tipoPago" id="credito" class="form-check-input" required> 
+                <label for="crédito">Tarjeta de Crédito</label>
+                <div class="invalid-feedback">Debe seleccionar una forma de pago</div>
+              </div>
+                <hr>
+              <div class="row mb-3">
+                <div class="col col-6">
+                    <label for="numTarjeta">Número de tarjeta</label>
+                  <input class="form-control" id="numTarjeta" name="numTarjeta" required>
+                  <div class="invalid-feedback">Debe seleccionar un número de tarjeta</div>
+                </div>
+                <div class="col col-4">
+                    <label for="codigo">Código de seg.</label>
+                  <input class="form-control" id="codigo" name="codigo" required>
+                  <div class="invalid-feedback">Debe seleccionar un código de seguridad</div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col col-6">
+                      <label for="vencimiento">Vencimiento (MM/AA)</label>
+                    <input class="form-control" id="vencimiento" name="vencimiento" required>
+                    <div class="invalid-feedback">Debe seleccionar una fecha de vencimiento</div>
+                </div>  
+             </div>
+              <div>
+                <input type="radio" name="tipoPago" id="transferencia" class="form-check-input" required> 
+                <label for="transferencia">Transferencia bancaria</label>
+                <div class="invalid-feedback">Debe seleccionar una forma de pago</div>
+              </div>
+                <hr>
+              <div class="col col-6">
+                <label for="numCuenta">Número de cuenta</label>
+              <input class="form-control" id="numCuenta" name="numCuenta" required>
+              <div class="invalid-feedback">Debe seleccionar un número de cuenta</div>
+              </div>  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+     </div>
+     <!--Botón-->
+    <div class="container d-grid gap-2 mt-5">
+       <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+    </div>
+          </form>
     </div>
   </main>
   <footer class="text-muted">
@@ -53,6 +210,9 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+  <div class="alert alert-success collapse" id="alertSuccess" role="alert">
+    Ha realizado la compra con éxito
+  </div>
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
